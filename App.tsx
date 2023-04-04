@@ -1,7 +1,7 @@
 import React from 'react';
 import * as reactNative from 'react-native';
-
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+import HomeScreen from './src/screens/Home';
 
 function App(): JSX.Element {
   const isDarkMode = reactNative.useColorScheme() === 'dark';
@@ -16,6 +16,7 @@ function App(): JSX.Element {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
+      <HomeScreen />
     </reactNative.SafeAreaView>
   );
 }
