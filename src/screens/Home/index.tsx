@@ -7,6 +7,10 @@ const HomeScreen = () => {
     <View style={styles.page}>
       {/* Render Component*/}
       <ProductCard />
+      <ProductCard />
+      <ProductCard />
+      <ProductCard />
+      <ProductCard />
     </View>
   );
 };

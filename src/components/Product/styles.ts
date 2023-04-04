@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     borderColor: '#d1d1d1',
     borderRadius: 10,
     backgroundColor: 'white',
+    marginVertical: 5,
   },
   image: {
     height: 150,
