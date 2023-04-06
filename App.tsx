@@ -5,6 +5,8 @@ import HomeScreen from './src/screens/Home';
 import {store} from './src/store';
 import {Provider} from 'react-redux';
 import {setupListeners} from '@reduxjs/toolkit/dist/query';
+import AppNav from './src/navigation/AppNav';
+import { AuthProvider } from './src/context/AuthContext';
 
 function App(): JSX.Element {
   const isDarkMode = reactNative.useColorScheme() === 'dark';
@@ -17,10 +19,12 @@ function App(): JSX.Element {
 
   return (
     <Provider store={store}>
-      <reactNative.SafeAreaView style={backgroundStyle}>
-        <reactNative.StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} backgroundColor={backgroundStyle.backgroundColor} />
-        <HomeScreen />
-      </reactNative.SafeAreaView>
+        <reactNative.SafeAreaView style={backgroundStyle}>
+          <AuthProvider>
+          <reactNative.StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} backgroundColor={backgroundStyle.backgroundColor} />
+            <AppNav />
+          </AuthProvider>
+        </reactNative.SafeAreaView>
     </Provider>
   );
 }
