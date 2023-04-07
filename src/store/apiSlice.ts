@@ -1,9 +1,10 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
+import {Host_Windows, Host_Ubuntu} from '../../env';
 
-const baseUrl = 'http://192.168.1.14:4000/api';
+// const Host_Windows = 'http://192.168.1.14:4000/api';
 
 export const apiSlice = createApi({
-  baseQuery: fetchBaseQuery({baseUrl: baseUrl}),
+  baseQuery: fetchBaseQuery({baseUrl: Host_Ubuntu + '/api'}),
   endpoints: builder => ({
     getProducts: builder.query<void, void>({
       query: () => 'products',

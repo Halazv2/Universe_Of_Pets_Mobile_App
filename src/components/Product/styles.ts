@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   image: {
     height: 150,
     flex: 2,
-    resizeMode: 'contain',
+    // resizeMode: 'contain',
   },
   rightContainer: {
     padding: 10,

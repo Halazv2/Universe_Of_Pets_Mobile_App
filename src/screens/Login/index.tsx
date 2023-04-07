@@ -1,29 +1,33 @@
-/* eslint-disable react/jsx-no-undef */
-import React, { useContext } from 'react';
+/* eslint-disable react-native/no-inline-styles */
+
+import React, {useContext} from 'react';
 import {View, StyleSheet} from 'react-native';
-import {ProductCard} from '../../components/Product';
-import {useGetProductsQuery} from '../../store/apiSlice';
-import {Text , TouchableOpacity} from 'react-native';
-import { AuthContext } from '../../context/AuthContext';
+import {Text, TouchableOpacity} from 'react-native';
+import {AuthContext} from '../../context/AuthContext';
 
 const LoginScreen = () => {
-    const { login } = useContext(AuthContext);
+  const {login} = useContext(AuthContext);
 
   return (
     <View style={styles.page}>
-        <TouchableOpacity onPress={() => { login(); }}>
-            <Text 
-            style={{  
-                fontWeight: '700',
-                fontSize: 20,
-                textAlign: 'center',
-                padding: 10,
-                backgroundColor: '#A40A',
-                borderRadius: 10,
-                width: '100%',
-                color: '#fff',
-        }}> Login</Text>
-        </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          login();
+        }}>
+        <Text
+          style={{
+            fontWeight: '700',
+            fontSize: 20,
+            textAlign: 'center',
+            padding: 10,
+            backgroundColor: '#A40A',
+            borderRadius: 10,
+            width: '100%',
+            color: '#fff',
+          }}>
+          Login
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };
