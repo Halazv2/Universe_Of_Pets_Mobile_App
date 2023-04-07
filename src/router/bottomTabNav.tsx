@@ -1,22 +1,39 @@
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import HomeScreen from '../screens/Home';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {ProductScreen} from '../screens/ProductScreen';
-import ShopingCartScreen from '@screens/ShopingCartScreen';
+import HomeScreen from '../screens/Home';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Entypo from 'react-native-vector-icons/Entypo';
+import HomeStack from './HomeStack';
+import ShoppingCartStack from './ShoppingCartStack';
 
 const Tab = createBottomTabNavigator();
 
 const BottomTabNav = () => {
   return (
-    <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Profile" component={HomeScreen} />
-        <Tab.Screen name="ShopingCart" component={ShopingCartScreen} />
-        <Tab.Screen name="Product" component={ProductScreen} />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <Tab.Navigator
+      screenOptions={{tabBarShowLabel: false, headerShown: false, tabBarActiveTintColor: '#e47911', tabBarInactiveTintColor: 'black'}}>
+      <Tab.Screen
+        name="Home"
+        component={HomeStack}
+        options={{tabBarIcon: ({color, size}) => <Entypo name="home" color={color} size={size} />}}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={HomeScreen}
+        options={{tabBarIcon: ({color, size}) => <FontAwesome name="user" color={color} size={size} />}}
+      />
+      <Tab.Screen
+        name="Shoping Cart"
+        component={ShoppingCartStack}
+        options={{tabBarIcon: ({color, size}) => <FontAwesome name="shopping-cart" color={color} size={size} />}}
+      />
+      <Tab.Screen
+        name="Product"
+        component={ProductScreen}
+        options={{tabBarIcon: ({color, size}) => <FontAwesome name="list" color={color} size={size} />}}
+      />
+    </Tab.Navigator>
   );
 };
 

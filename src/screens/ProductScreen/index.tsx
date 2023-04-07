@@ -5,10 +5,28 @@ import {styles} from './styles';
 import {QuantitySelector} from '../../components/QuantitySelector';
 import Button from '../../components/Button';
 import ImageCarouasel from '../../components/ImageCarouasel';
+import {useRoute} from '@react-navigation/native';
+import {useGetProductQuery} from '../../store/apiSlice';
 
 const ProductScreen = () => {
   const [selectedOption, setSelectedOption] = useState();
   const [quantity, setQuantity] = useState(1);
+  const route = useRoute();
+  const {id} = route.params;
+  const {data, error, isLoading}: any = useGetProductQuery(id);
+
+  if (isLoading) {
+    return <Text>Loading...</Text>;
+  }
+
+  if (error) {
+    console.log(error);
+  }
+
+  if (data) {
+    console.log(data);
+  }
+
   return (
     <ScrollView style={styles.root}>
       <Text style={styles.title}>Product Screen</Text>

@@ -5,8 +5,10 @@ import {Text, FlatList} from 'react-native';
 import {CartProductItem} from '../../components/CartProductitem';
 import {QuantitySelector} from '../../components/QuantitySelector';
 import Button from '../../components/Button';
+import {useNavigation} from '@react-navigation/core';
 
 const ShopingCartScreen = () => {
+  const navigation = useNavigation();
   const {data, error, isLoading}: any = useGetOrdersQuery();
 
   if (isLoading) {
@@ -24,6 +26,10 @@ const ShopingCartScreen = () => {
     0,
   );
 
+  const checkout = () => {
+    navigation.navigate('Address');
+  };
+
   return (
     <View style={styles.page}>
       {/* Render Component*/}
@@ -40,7 +46,7 @@ const ShopingCartScreen = () => {
 
             <Button
               title="Proceed to checkout"
-              onPress={() => console.warn('Checkout')}
+              onPress={() => checkout()}
               containerStyle={{backgroundColor: '#f7e300', borderColor: '#c7b702', width: '100%', borderRadius: 0}}
             />
           </View>

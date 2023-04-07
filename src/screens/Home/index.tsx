@@ -5,15 +5,20 @@ import {useGetProductsQuery} from '../../store/apiSlice';
 import {Text, FlatList} from 'react-native';
 import {AuthContext} from '../../context/AuthContext';
 
-const HomeScreen = () => {
+const HomeScreen = ({searchValue}: {searchValue: string}) => {
   const {data, error, isLoading}: any = useGetProductsQuery();
 
   if (isLoading) {
     return <Text>Loading...</Text>;
   }
 
+  // React.useEffect(() => {
+  //   console.log(searchValue);
+  // }, [searchValue]);
+
   return (
     <View style={styles.page}>
+      <Text>{searchValue}</Text>
       {/* Render Component*/}
       <FlatList data={data} renderItem={({item}) => <ProductCard product={item} />} keyExtractor={item => item.id} />
     </View>

@@ -1,25 +1,35 @@
 import React from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, Pressable} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {styles} from './styles';
 import {Host_Ubuntu, Host_Windows} from '../../../env';
+import {useNavigation} from '@react-navigation/core';
 type ProductCardProps = {
   product: {
-    _id: string;
+    id: string;
     name: string;
     image: Array<string>;
-    brand?: string;
     category?: Array<string>;
     description?: string;
     price: number;
   };
 };
 
-const ProductCard = ({product: {_id, name, image, brand, category, description, price}}: ProductCardProps) => {
+const ProductCard = ({product: {id, name, image, category, description, price}}: ProductCardProps) => {
   const imageUrl = `${Host_Ubuntu}/uploads/${image[0]}`;
+  const navigation = useNavigation();
+
+  const goToProductPage = () => {
+    console.warn('Go to product page');
+    navigation.navigate('ProductDetails', {id: id});
+  };
 
   return (
-    <View style={styles.root}>
+    <Pressable
+      onPress={() => {
+        goToProductPage();
+      }}
+      style={styles.root}>
       <Image
         style={styles.image}
         source={{
@@ -42,7 +52,7 @@ const ProductCard = ({product: {_id, name, image, brand, category, description, 
           <Text style={styles.oldPrice}>{price}</Text>
         </Text>
       </View>
-    </View>
+    </Pressable>
   );
 };
 

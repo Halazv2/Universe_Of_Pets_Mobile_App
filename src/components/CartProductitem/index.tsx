@@ -31,7 +31,6 @@ type CartProductItemProps = {
 };
 
 const CartProductItem = ({cartItem}: CartProductItemProps) => {
-  console.log(cartItem);
   const imageUrl = `${Host_Ubuntu}/uploads/${cartItem.products[0].images[0].path}`;
   const {quantity: quantityProp, option, products, total} = cartItem;
 
