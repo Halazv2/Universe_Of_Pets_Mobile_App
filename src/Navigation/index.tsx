@@ -7,6 +7,7 @@ import HomeScreen from '../screens/Home';
 import {ProductScreen} from '../screens/ProductScreen';
 import ShopingCartScreen from '../screens/ShopingCartScreen';
 import Login from '../screens/Login';
+import {AddressScreen} from '../screens/AddressScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,7 +27,8 @@ const AppNav = () => {
       {userToken !== null ? (
         // <HomeScreen />
         // <ProductScreen />
-        <ShopingCartScreen />
+        // <ShopingCartScreen />
+        <AddressScreen />
       ) : (
         <Login />
       )}

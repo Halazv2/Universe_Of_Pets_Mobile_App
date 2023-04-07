@@ -6,6 +6,7 @@ import {Provider} from 'react-redux';
 import {setupListeners} from '@reduxjs/toolkit/dist/query';
 import AppNav from './src/Navigation';
 import {AuthProvider} from './src/context/AuthContext';
+import Router from './src/router';
 
 function App(): JSX.Element {
   const isDarkMode = reactNative.useColorScheme() === 'dark';
@@ -24,7 +25,8 @@ function App(): JSX.Element {
             barStyle={isDarkMode ? 'light-content' : 'dark-content'}
             backgroundColor={backgroundStyle.backgroundColor}
           />
-          <AppNav />
+          {/* <AppNav /> */}
+          <Router />
         </AuthProvider>
       </reactNative.SafeAreaView>
     </Provider>
