@@ -3,7 +3,9 @@ import {View, Text, ActivityIndicator} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {AuthContext} from '../context/AuthContext';
+import HomeScreen from '../screens/Home';
 import {ProductScreen} from '../screens/ProductScreen';
+import ShopingCartScreen from '../screens/ShopingCartScreen';
 import Login from '../screens/Login';
 
 const Stack = createNativeStackNavigator();
@@ -18,8 +20,18 @@ const AppNav = () => {
       </View>
     );
   }
-  
-  return <>{userToken !== null ? <ProductScreen /> : <Login />}</>;
+
+  return (
+    <>
+      {userToken !== null ? (
+        // <HomeScreen />
+        // <ProductScreen />
+        <ShopingCartScreen />
+      ) : (
+        <Login />
+      )}
+    </>
+  );
 };
 
 export default AppNav;

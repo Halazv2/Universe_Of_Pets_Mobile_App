@@ -8,7 +8,7 @@
       "@utils/*": ["src/utils/*"],
       "@assets/*": ["src/assets/*"],
       "@hooks/*": ["src/hooks/*"],
-      "@navigation/*": ["src/navigation/*"],
+      "@navigation/*": ["src/Navigation/*"],
       "@store/*": ["src/store/*"],
       "@types/*": ["src/types/*"],
       "@services/*": ["src/services/*"],

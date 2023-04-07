@@ -1,17 +1,26 @@
-import {View, Text} from 'react-native';
+import {View, Text, ScrollView} from 'react-native';
 import React, {useState} from 'react';
 import {Picker} from '@react-native-picker/picker';
 import {styles} from './styles';
 import {QuantitySelector} from '../../components/QuantitySelector';
 import Button from '../../components/Button';
+import ImageCarouasel from '../../components/ImageCarouasel';
 
 const ProductScreen = () => {
   const [selectedOption, setSelectedOption] = useState();
   const [quantity, setQuantity] = useState(1);
   return (
-    <View style={styles.root}>
+    <ScrollView style={styles.root}>
       <Text style={styles.title}>Product Screen</Text>
       {/* image corousel */}
+
+      <ImageCarouasel
+        images={[
+          'https://m.media-amazon.com/images/I/718wOnWm7eL._AC_SL1500_.jpg',
+          'https://m.media-amazon.com/images/I/91NAgsuiSKL._AC_SL1500_.jpg',
+          'https://m.media-amazon.com/images/I/81cfIFujiwL._AC_SL1500_.jpg',
+        ]}
+      />
 
       {/* Options slecetion */}
 
@@ -23,8 +32,8 @@ const ProductScreen = () => {
 
       {/* Description */}
       <Text style={styles.description}>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Atque officiis reiciendis quae qui neque illo odit ipsum quibusdam iure ratione aliquam expedita tempora, aut
-        iste. Mollitia beatae ratione odit eos!
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Atque officiis reiciendis quae qui neque illo odit ipsum quibusdam iure
+        ratione aliquam expedita tempora, aut iste. Mollitia beatae ratione odit eos!
       </Text>
 
       {/*  selector */}
@@ -44,7 +53,7 @@ const ProductScreen = () => {
         }}
       />
       <Button title="Buy Now" onPress={() => console.warn('Buy now')} />
-    </View>
+    </ScrollView>
   );
 };
 

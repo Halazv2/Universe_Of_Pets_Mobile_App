@@ -2,9 +2,8 @@ import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {ProductCard} from '../../components/Product';
 import {useGetProductsQuery} from '../../store/apiSlice';
-import {Text, TouchableOpacity,FlatList} from 'react-native';
+import {Text, FlatList} from 'react-native';
 import {AuthContext} from '../../context/AuthContext';
-
 
 const HomeScreen = () => {
   const {data, error, isLoading}: any = useGetProductsQuery();
@@ -16,12 +15,7 @@ const HomeScreen = () => {
   return (
     <View style={styles.page}>
       {/* Render Component*/}
-      <FlatList
-        data={data}
-        renderItem={({item}) => <ProductCard product={item} />}
-        keyExtractor={item => item.id}
-      />
-      
+      <FlatList data={data} renderItem={({item}) => <ProductCard product={item} />} keyExtractor={item => item.id} />
     </View>
   );
 };

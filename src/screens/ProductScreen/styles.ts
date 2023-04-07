@@ -4,6 +4,8 @@ export const styles = StyleSheet.create({
   root: {
     padding: 10,
     backgroundColor: 'white',
+    height: '100%',
+    width: '100%',
   },
   title: {
     fontSize: 18,

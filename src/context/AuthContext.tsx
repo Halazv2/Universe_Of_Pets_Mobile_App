@@ -1,4 +1,4 @@
-import React, { createContext, useState, ReactNode } from 'react';
+import React, {createContext, useState, ReactNode} from 'react';
 
 interface AuthContextType {
   login: () => void;
@@ -18,7 +18,7 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
-const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
+const AuthProvider = ({children}: AuthProviderProps): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [userToken, setUserToken] = useState<string | null>(null);
 
@@ -32,11 +32,7 @@ const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
     setIsLoading(false);
   };
 
-  return (
-    <AuthContext.Provider value={{ login, logout, userToken, isLoading }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={{login, logout, userToken, isLoading}}>{children}</AuthContext.Provider>;
 };
 
-export { AuthProvider };
+export {AuthProvider};
