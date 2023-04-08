@@ -9,6 +9,7 @@ import {AuthProvider} from './src/context/AuthContext';
 import Router from './src/router';
 import 'react-native-gesture-handler';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {NavigationContainer} from '@react-navigation/native';
 
 function App(): JSX.Element {
   const isDarkMode = reactNative.useColorScheme() === 'dark';
@@ -21,13 +22,15 @@ function App(): JSX.Element {
 
   return (
     <Provider store={store}>
-      {/* <reactNative.SafeAreaView style={backgroundStyle}> */}
-      {/* <AuthProvider> */}
-      <reactNative.StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} backgroundColor={backgroundStyle.backgroundColor} />
-      {/* <AppNav /> */}
-      <Router />
-      {/* </AuthProvider> */}
-      {/* </reactNative.SafeAreaView> */}
+      <NavigationContainer>
+        <AuthProvider>
+          <reactNative.StatusBar
+            barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+            backgroundColor={backgroundStyle.backgroundColor}
+          />
+          <Router />
+        </AuthProvider>
+      </NavigationContainer>
     </Provider>
   );
 }

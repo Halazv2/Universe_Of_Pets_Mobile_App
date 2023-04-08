@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   quantity: {
-    color: '#007eb9',
+    color: '#e3c905',
     fontSize: 18,
     marginHorizontal: 4,
   },

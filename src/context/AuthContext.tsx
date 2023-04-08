@@ -1,14 +1,15 @@
+import {useNavigation} from '@react-navigation/native';
+import {useLoginMutation} from '../store/apiSlice';
 import React, {createContext, useState, ReactNode} from 'react';
-
 interface AuthContextType {
-  login: () => void;
+  login: (email: string, password: string) => Promise<void>;
   logout: () => void;
   userToken: string | null;
   isLoading: boolean;
 }
 
 export const AuthContext = createContext<AuthContextType>({
-  login: () => {},
+  login: async (email: string, password: string) => {},
   logout: () => {},
   userToken: null,
   isLoading: true,
@@ -19,11 +20,22 @@ interface AuthProviderProps {
 }
 
 const AuthProvider = ({children}: AuthProviderProps): JSX.Element => {
+  const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [userToken, setUserToken] = useState<string | null>(null);
 
-  const login = (): void => {
-    setUserToken('test');
+  const [loginMutation] = useLoginMutation();
+
+  const login = async (email: string, password: string): Promise<void> => {
+    setIsLoading(true);
+    const result = await loginMutation({email, password});
+
+    if (result.data) {
+      console.log(result.data);
+      setUserToken(result.data.token);
+      setIsLoading(false);
+      navigation.navigate('Home');
+    }
     setIsLoading(false);
   };
 

@@ -34,6 +34,13 @@ export const apiSlice = createApi({
         body: data,
       }),
     }),
+    login: builder.mutation({
+      query: data => ({
+        url: 'client/login',
+        method: 'POST',
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -44,4 +51,5 @@ export const {
   useGetOrderQuery,
   useCreatePaymentIntentMutation,
   useGetOrdersQuery,
+  useLoginMutation,
 } = apiSlice;
