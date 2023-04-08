@@ -1,5 +1,6 @@
 import {FlatList, Image, StyleSheet, Text, View, useWindowDimensions} from 'react-native';
 import React, {useCallback} from 'react';
+import {Host_Ubuntu} from '../../../env';
 type ImageCarouaselProps = {
   images: string[];
 };
@@ -13,6 +14,7 @@ const ImageCarouasel = (props: ImageCarouaselProps) => {
       setActiveIndex(viewableItems[0].index || 0);
     }
   }, []);
+  const imageUrl = `${Host_Ubuntu}/uploads/${props.images}`;
 
   return (
     <View style={styles.root}>
@@ -23,7 +25,7 @@ const ImageCarouasel = (props: ImageCarouaselProps) => {
         snapToAlignment={'center'}
         decelerationRate={'fast'}
         showsHorizontalScrollIndicator={false}
-        renderItem={({item}) => <Image style={[styles.image, {width: width - 25, height: (width - 20) * 0.8}]} source={{uri: item}} />}
+        renderItem={({item}) => <Image style={[styles.image, {width: width - 25, height: (width - 20) * 0.8}]} source={{uri: imageUrl}} />}
         viewabilityConfig={{
           viewAreaCoveragePercentThreshold: 50,
         }}

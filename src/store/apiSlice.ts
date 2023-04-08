@@ -5,12 +5,13 @@ import {Host_Windows, Host_Ubuntu} from '../../env';
 
 export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({baseUrl: Host_Ubuntu + '/api'}),
+  tagTypes: ['Products', 'Orders', 'Payments', 'Cart'],
   endpoints: builder => ({
     getProducts: builder.query<void, void>({
       query: () => 'products',
     }),
     getProduct: builder.query({
-      query: id => `products/${id}`,
+      query: id => `products/byId/${id}`,
     }),
     // Orders
     createOrder: builder.mutation({
@@ -23,8 +24,16 @@ export const apiSlice = createApi({
     getOrder: builder.query({
       query: ref => `orders/${ref}`,
     }),
-    getOrders: builder.query<void, void>({
-      query: () => 'orders',
+    getUserCart: builder.query<void, void>({
+      query: id => `cart/${id}`,
+    }),
+    deleteProductFromCart: builder.mutation({
+      query: id => ({
+        url: `cart/${id}`,
+        method: 'DELETE',
+        body: id,
+      }),
+      invalidatesTags: ['Cart'],
     }),
     // Payments
     createPaymentIntent: builder.mutation({
@@ -50,6 +59,7 @@ export const {
   useCreateOrderMutation,
   useGetOrderQuery,
   useCreatePaymentIntentMutation,
-  useGetOrdersQuery,
+  useGetUserCartQuery,
+  useDeleteProductFromCartMutation,
   useLoginMutation,
 } = apiSlice;

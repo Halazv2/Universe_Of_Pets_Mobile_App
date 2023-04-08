@@ -1,9 +1,11 @@
 import React from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, Pressable} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {styles} from './styles';
 import {Host_Ubuntu, Host_Windows} from '../../../env';
 import {QuantitySelector} from '../QuantitySelector';
+import Button from '../../components/Button';
+import {useDeleteProductFromCartMutation} from '../../store/apiSlice';
 
 type CartProductItemProps = {
   cartItem: {
@@ -35,6 +37,12 @@ const CartProductItem = ({cartItem}: CartProductItemProps) => {
   const {quantity: quantityProp, option, products, total} = cartItem;
 
   const [quantity, setQuantity] = React.useState(quantityProp);
+  const [deleteProductFromCart] = useDeleteProductFromCartMutation();
+
+  const removeItem = () => {
+    console.log('Remove Item' + cartItem._id);
+    deleteProductFromCart(cartItem._id);
+  };
 
   return (
     <View style={styles.root}>
@@ -56,11 +64,14 @@ const CartProductItem = ({cartItem}: CartProductItemProps) => {
             <FontAwesome style={styles.star} name={'star-o'} size={18} color={'#e47911'} />
             <Text>4.0 (23)</Text>
           </View>
-          <Text style={styles.price}>${total}</Text>
+          <Text style={styles.price}>${products[0].price}</Text>
         </View>
       </View>
       <View style={styles.quantityContainer}>
         <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
+        <Pressable onPress={removeItem} style={styles.deleteButton}>
+          <FontAwesome style={styles.star} name={'trash-o'} size={18} color={'#e47911'} />
+        </Pressable>
       </View>
     </View>
   );

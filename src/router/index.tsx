@@ -20,13 +20,16 @@ const Router = () => {
   }
   return (
     <>
-      {userToken !== null ? (
+      {/* {userToken !== null ? (
         <Root.Navigator screenOptions={{headerShown: false}}>
           <Root.Screen component={BottomTabNav} name="HomeTabs" />
         </Root.Navigator>
       ) : (
         <LoginScreen />
-      )}
+      )} */}
+      <Root.Navigator screenOptions={{headerShown: false}}>
+        <Root.Screen component={BottomTabNav} name="HomeTabs" />
+      </Root.Navigator>
     </>
   );
 };

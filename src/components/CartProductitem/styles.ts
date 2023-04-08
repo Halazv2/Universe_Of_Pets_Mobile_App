@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
   },
   quantityContainer: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
     marginVertical: 1,
     marginLeft: 5,
@@ -48,6 +49,15 @@ const styles = StyleSheet.create({
     fontSize: 12,
     textDecorationLine: 'line-through',
     fontWeight: 'normal',
+  },
+  deleteButton: {
+    flex: 1,
+    margin: 5,
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    width: '100%',
+    borderRadius: 5,
+    marginRight: 20,
   },
 });
 

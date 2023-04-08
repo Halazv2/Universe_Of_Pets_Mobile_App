@@ -20,7 +20,6 @@ const ProductCard = ({product: {id, name, image, category, description, price}}:
   const navigation = useNavigation();
 
   const goToProductPage = () => {
-    console.warn('Go to product page');
     navigation.navigate('ProductDetails', {id: id});
   };
 
