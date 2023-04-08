@@ -6,6 +6,8 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Entypo from 'react-native-vector-icons/Entypo';
 import HomeStack from './HomeStack';
 import ShoppingCartStack from './ShoppingCartStack';
+import MenuScreen from '../screens/MenuScreen';
+import AuthenticationStack from './Authentication';
 
 const Tab = createBottomTabNavigator();
 
@@ -30,7 +32,7 @@ const BottomTabNav = () => {
       />
       <Tab.Screen
         name="Product"
-        component={ProductScreen}
+        component={AuthenticationStack}
         options={{tabBarIcon: ({color, size}) => <FontAwesome name="list" color={color} size={size} />}}
       />
     </Tab.Navigator>

@@ -24,14 +24,24 @@ export const apiSlice = createApi({
     getOrder: builder.query({
       query: ref => `orders/${ref}`,
     }),
+    // Cart
     getUserCart: builder.query<void, void>({
       query: id => `cart/${id}`,
+      providesTags: ['Cart'],
     }),
     deleteProductFromCart: builder.mutation({
       query: id => ({
         url: `cart/${id}`,
         method: 'DELETE',
         body: id,
+      }),
+      invalidatesTags: ['Cart'],
+    }),
+    addProductToCart: builder.mutation({
+      query: data => ({
+        url: 'cart',
+        method: 'POST',
+        body: data,
       }),
       invalidatesTags: ['Cart'],
     }),
@@ -50,6 +60,13 @@ export const apiSlice = createApi({
         body: data,
       }),
     }),
+    signup: builder.mutation({
+      query: data => ({
+        url: 'client/signup',
+        method: 'POST',
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -61,5 +78,7 @@ export const {
   useCreatePaymentIntentMutation,
   useGetUserCartQuery,
   useDeleteProductFromCartMutation,
+  useAddProductToCartMutation,
   useLoginMutation,
+  useSignupMutation,
 } = apiSlice;

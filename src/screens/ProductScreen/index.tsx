@@ -6,26 +6,41 @@ import {QuantitySelector} from '../../components/QuantitySelector';
 import Button from '../../components/Button';
 import ImageCarouasel from '../../components/ImageCarouasel';
 import {useRoute} from '@react-navigation/native';
-import {useGetProductQuery} from '../../store/apiSlice';
+import {useAddProductToCartMutation, useGetProductQuery} from '../../store/apiSlice';
+import {userSelector} from '../../store/UserSlice';
+import {useSelector} from 'react-redux';
 
 const ProductScreen = () => {
   const [selectedOption, setSelectedOption] = useState();
   const [quantity, setQuantity] = useState(1);
   const route = useRoute();
   const {id} = route.params;
+  const selector = useSelector(userSelector);
   const {data, error, isLoading}: any = useGetProductQuery(id);
+  const [addToCart, {isLoading: addToCartLoading, error: addToCartError}] = useAddProductToCartMutation();
 
   if (isLoading) {
     return <Text>Loading...</Text>;
   }
 
-  if (error) {
-    console.log(error);
-  }
+  const onAddToCart = async () => {
+    if (!selectedOption) {
+      setSelectedOption(data[0].options[0]);
+    }
 
-  if (data) {
-    console.log(data);
-  }
+    await addToCart({
+      products: [id],
+      quantity: quantity,
+      options: selectedOption,
+      user: selector.user.id,
+    });
+
+    console.log('data', id, quantity, selectedOption, selector.user.id);
+
+    // addToCart({id, quantity, option: selectedOption});
+
+    // fetch data from api and add to cart in redux
+  };
 
   return (
     <ScrollView style={styles.root}>
@@ -55,23 +70,29 @@ const ProductScreen = () => {
       <Text style={styles.description}>{data[0].description}</Text>
 
       {/*  selector */}
-      <Picker selectedValue={selectedOption} onValueChange={(itemValue, itemIndex) => setSelectedOption(itemValue)}>
-        {data[0].options.map((option: any) => (
-          <Picker.Item label={option} value={option} />
-        ))}
-      </Picker>
+      {data[0].options.length > 0 && (
+        <Picker
+          selectedValue={selectedOption}
+          onValueChange={(itemValue, itemIndex) => {
+            setSelectedOption(itemValue);
+          }}>
+          {data[0].options.map((option: any) => (
+            <Picker.Item label={option} value={option} key={option} />
+          ))}
+        </Picker>
+      )}
 
       {/* Quantity selector */}
       <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
       {/* Add to cart button */}
       <Button
         title="Add to cart"
-        onPress={() => console.warn('Add to cart')}
+        onPress={() => onAddToCart()}
         containerStyle={{
           backgroundColor: '#e3c905',
         }}
       />
-      <Button title="Buy Now" onPress={() => console.warn('Buy now')} />
+      <Button title="Buy Now" onPress={() => console.warn('Buy Now')} />
     </ScrollView>
   );
 };

@@ -46,6 +46,7 @@ const HomeStack = () => {
         {() => <HomeScreen searchValue={searchValue} />}
       </Stack.Screen>
       <Stack.Screen component={ProductScreen} name="ProductDetails" />
+      
     </Stack.Navigator>
   );
 };

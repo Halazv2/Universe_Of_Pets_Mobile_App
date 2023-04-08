@@ -3,6 +3,7 @@ import {useLoginMutation} from '../store/apiSlice';
 import React, {createContext, useState, ReactNode} from 'react';
 import {userSelector, userSlice} from '../store/UserSlice';
 import {useSelector, useDispatch} from 'react-redux';
+
 interface AuthContextType {
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
@@ -22,6 +23,8 @@ interface AuthProviderProps {
 }
 interface LoginMutationResult {
   data: {
+    last_name: string;
+    first_name: string;
     _id: string;
     name: string;
     email: string;
@@ -35,23 +38,30 @@ const AuthProvider = ({children}: AuthProviderProps): JSX.Element => {
   const [userToken, setUserToken] = useState<string | null>(null);
 
   const [loginMutation] = useLoginMutation();
-  const selector = useSelector(userSelector);
   const dispatch = useDispatch();
 
   const login = async (email: string, password: string): Promise<void> => {
     setIsLoading(true);
     const result = (await loginMutation({email, password})) as LoginMutationResult;
 
+    console.log(result.data);
     if (result.data && result.data.token) {
-      // dispatch(
-      //   userSlice.actions.setLogin({id: result.data._id, name: result.data.name, email: result.data.email, token: result.data.token}),
-      // );
+      setUserToken(result.data.token);
+      dispatch(
+        userSlice.actions.setLogin({
+          id: result.data._id,
+          first_name: result.data.first_name,
+          last_name: result.data.last_name,
+          email: result.data.email,
+          token: result.data.token,
+        }),
+      );
 
-      // setTimeout(() => {
-      //   navigation.navigate('Home');
-      // }, 300);
 
-      console.log(selector.userid);
+      setTimeout(() => {
+        navigation.navigate('Home');
+      }, 100);
+      setIsLoading(false);
     }
     setIsLoading(false);
   };
@@ -62,6 +72,8 @@ const AuthProvider = ({children}: AuthProviderProps): JSX.Element => {
   const logout = (): void => {
     setUserToken(null);
     setIsLoading(false);
+
+    navigation.navigate('Login');
   };
 
   return <AuthContext.Provider value={{login, logout, userToken, isLoading}}>{children}</AuthContext.Provider>;

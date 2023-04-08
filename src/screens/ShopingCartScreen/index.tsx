@@ -13,12 +13,12 @@ import {EmptyCart} from '../../assets';
 const ShopingCartScreen = () => {
   const navigation = useNavigation();
   const selector = useSelector(userSelector);
-  const {data, error, isLoading}: any = useGetUserCartQuery(selector.userid);
+  const {data, error, isLoading}: any = useGetUserCartQuery(selector.user.id);
 
   if (isLoading) {
     return <Text>Loading...</Text>;
   }
-  // console.log('data', data);
+  // console.log('d ata', data);
 
   const totalPrice =
     data.length > 0

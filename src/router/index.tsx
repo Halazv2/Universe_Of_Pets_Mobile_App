@@ -5,6 +5,7 @@ import BottomTabNav from './bottomTabNav';
 import {AuthContext} from '../context/AuthContext';
 import {ActivityIndicator, View} from 'react-native';
 import LoginScreen from '../screens/Login';
+import SignupScreen from '../screens/Login/Signup';
 
 const Root = createStackNavigator();
 
@@ -20,16 +21,20 @@ const Router = () => {
   }
   return (
     <>
-      {/* {userToken !== null ? (
+      {userToken !== null ? (
         <Root.Navigator screenOptions={{headerShown: false}}>
           <Root.Screen component={BottomTabNav} name="HomeTabs" />
         </Root.Navigator>
       ) : (
-        <LoginScreen />
-      )} */}
-      <Root.Navigator screenOptions={{headerShown: false}}>
+        <Root.Navigator screenOptions={{headerShown: false}}>
+          <Root.Screen component={LoginScreen} name="Login" options={{title: 'Login'}} />
+          <Root.Screen component={SignupScreen} name="Signup" options={{title: 'Signup'}} />
+        </Root.Navigator>
+      )}
+      {/* <Root.Navigator screenOptions={{headerShown: false}}>
         <Root.Screen component={BottomTabNav} name="HomeTabs" />
-      </Root.Navigator>
+        <Root.Screen component={LoginScreen} name="Login" options={{title: 'Login'}} />
+      </Root.Navigator> */}
     </>
   );
 };

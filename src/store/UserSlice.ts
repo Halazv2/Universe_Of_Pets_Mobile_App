@@ -1,4 +1,4 @@
-import {createSlice, createEntityAdapter} from '@reduxjs/toolkit';
+import {createSlice, createEntityAdapter, PayloadAction} from '@reduxjs/toolkit';
 
 const userAdapter = createEntityAdapter();
 
@@ -21,27 +21,16 @@ const initialState: initialState = {
   loading: false,
   error: null,
   user: [],
-  userid: '641709f5f4423168b428624e',
+  userid: '',
 };
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setLogin: (
-      state,
-      action: {
-        payload: {
-          id: string;
-          name: string;
-          email: string;
-          token: string;
-        };
-      },
-    ) => {
-      console.log('action.payload', action.payload);
-      state.loading = true;
+    setLogin: (state, action: PayloadAction<User>) => {
       state.user = action.payload;
+      console.log('userSlice.ts: ', state.user);
     },
   },
 });
