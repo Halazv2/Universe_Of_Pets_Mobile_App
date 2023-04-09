@@ -8,6 +8,7 @@ import HomeStack from './HomeStack';
 import ShoppingCartStack from './ShoppingCartStack';
 import MenuScreen from '../screens/MenuScreen';
 import AuthenticationStack from './Authentication';
+import ProfileScreen from '../screens/Profile';
 
 const Tab = createBottomTabNavigator();
 
@@ -21,20 +22,20 @@ const BottomTabNav = () => {
         options={{tabBarIcon: ({color, size}) => <Entypo name="home" color={color} size={size} />}}
       />
       <Tab.Screen
-        name="Profile"
-        component={HomeScreen}
-        options={{tabBarIcon: ({color, size}) => <FontAwesome name="user" color={color} size={size} />}}
-      />
-      <Tab.Screen
-        name="Shoping Cart"
+        name="cart"
         component={ShoppingCartStack}
         options={{tabBarIcon: ({color, size}) => <FontAwesome name="shopping-cart" color={color} size={size} />}}
       />
       <Tab.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{tabBarIcon: ({color, size}) => <FontAwesome name="user" color={color} size={size} />}}
+      />
+      {/* <Tab.Screen
         name="Product"
         component={AuthenticationStack}
         options={{tabBarIcon: ({color, size}) => <FontAwesome name="list" color={color} size={size} />}}
-      />
+      /> */}
     </Tab.Navigator>
   );
 };

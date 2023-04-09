@@ -6,6 +6,7 @@ import {Host_Ubuntu, Host_Windows} from '../../../env';
 import {QuantitySelector} from '../QuantitySelector';
 import Button from '../../components/Button';
 import {useDeleteProductFromCartMutation} from '../../store/apiSlice';
+import {useNavigation} from '@react-navigation/core';
 
 type CartProductItemProps = {
   cartItem: {
@@ -28,13 +29,13 @@ type CartProductItemProps = {
         category: [string];
       },
     ];
-    total: number;
   };
 };
 
 const CartProductItem = ({cartItem}: CartProductItemProps) => {
   const imageUrl = `${Host_Ubuntu}/uploads/${cartItem.products[0].images[0].path}`;
-  const {quantity: quantityProp, option, products, total} = cartItem;
+  const {quantity: quantityProp, option, products} = cartItem;
+  const navigation = useNavigation();
 
   const [quantity, setQuantity] = React.useState(quantityProp);
   const [deleteProductFromCart] = useDeleteProductFromCartMutation();
@@ -42,6 +43,11 @@ const CartProductItem = ({cartItem}: CartProductItemProps) => {
   const removeItem = () => {
     console.log('Remove Item' + cartItem._id);
     deleteProductFromCart(cartItem._id);
+  };
+
+  const totalPrice = (products[0].price * quantity).toFixed(2);
+  const checkout = () => {
+    navigation.navigate('Address' as never, {cartItem: cartItem, totalPrice: totalPrice} as never);
   };
 
   return (
@@ -64,7 +70,13 @@ const CartProductItem = ({cartItem}: CartProductItemProps) => {
             <FontAwesome style={styles.star} name={'star-o'} size={18} color={'#e47911'} />
             <Text>4.0 (23)</Text>
           </View>
-          <Text style={styles.price}>${products[0].price}</Text>
+          <Text style={styles.price}>
+            {
+              <Text>
+                X {quantity} = ${totalPrice} (Total)
+              </Text>
+            }
+          </Text>
         </View>
       </View>
       <View style={styles.quantityContainer}>
@@ -73,6 +85,11 @@ const CartProductItem = ({cartItem}: CartProductItemProps) => {
           <FontAwesome style={styles.star} name={'trash-o'} size={18} color={'#e47911'} />
         </Pressable>
       </View>
+      <Button
+        title="Proceed to checkout"
+        onPress={() => checkout()}
+        containerStyle={{backgroundColor: '#f7e300', borderColor: '#c7b702', width: '100%', borderRadius: 0}}
+      />
     </View>
   );
 };

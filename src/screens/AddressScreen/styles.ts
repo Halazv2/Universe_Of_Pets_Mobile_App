@@ -4,10 +4,14 @@ const styles = StyleSheet.create({
   root: {
     padding: 10,
   },
-  row: {
-    // flexDirection: 'row',
-    // alignItems: 'center',
-    // marginVertical: 10,
+  title: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    marginBottom: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 10,
+    textAlign: 'center',
   },
   label: {
     fontWeight: 'bold',

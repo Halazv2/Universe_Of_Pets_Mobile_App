@@ -9,8 +9,10 @@ import {useRoute} from '@react-navigation/native';
 import {useAddProductToCartMutation, useGetProductQuery} from '../../store/apiSlice';
 import {userSelector} from '../../store/UserSlice';
 import {useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
 
 const ProductScreen = () => {
+  const navigation = useNavigation();
   const [selectedOption, setSelectedOption] = useState();
   const [quantity, setQuantity] = useState(1);
   const route = useRoute();
@@ -28,18 +30,17 @@ const ProductScreen = () => {
       setSelectedOption(data[0].options[0]);
     }
 
-    await addToCart({
+    const data = {
+      user: selector.user.id,
       products: [id],
       quantity: quantity,
-      options: selectedOption,
-      user: selector.user.id,
-    });
+      option: selectedOption,
+    };
 
-    console.log('data', id, quantity, selectedOption, selector.user.id);
+    await addToCart(data);
 
-    // addToCart({id, quantity, option: selectedOption});
-
-    // fetch data from api and add to cart in redux
+    console.log(data);
+    navigation.navigate('cart');
   };
 
   return (

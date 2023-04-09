@@ -4,10 +4,19 @@ import {Picker} from '@react-native-picker/picker';
 import styles from './styles';
 import countryList from 'country-list';
 import Button from '../../components/Button';
+import {useRoute} from '@react-navigation/core';
+import {useSetOrderMutation} from '../../store/apiSlice';
+import {useSelector} from 'react-redux';
+import {userSelector} from '../../store/UserSlice';
+import {useNavigation} from '@react-navigation/native';
 
 const countries = countryList.getData();
 
 const AddressScreen = () => {
+  const route = useRoute();
+  const {user} = useSelector(userSelector);
+  const [setOrder] = useSetOrderMutation();
+  const navigation = useNavigation();
   const [country, setCountry] = React.useState(countries[0].code);
   const [values, setValues] = React.useState({
     fullName: '',
@@ -67,17 +76,57 @@ const AddressScreen = () => {
   };
 
   const checkout = () => {
-    // checke if there are any errors from the validation
     if (Object.values(errors).some((err: boolean) => err)) {
       Alert.alert('Please fill in all the fields');
       return;
     }
 
-    Alert.alert('Success', 'Your order has been placed successfully');
+    const {fullName, phoneNumber, addressLine1, addressLine2, city} = values;
+    const {cartItem, totalPrice} = route.params as any;
+
+    const order = {
+      user: user.id,
+      products: cartItem.products[0]._id,
+      quantity: cartItem.quantity,
+      option: cartItem.option,
+      total: totalPrice,
+      phone: phoneNumber,
+      addressLineOne: addressLine1,
+      addressLineTwo: addressLine2,
+      city: city,
+      country: country,
+    };
+
+    console.log(order);
+
+    setOrder(order);
+
+    Alert.alert(
+      'Order Placed',
+      'Your order has been successfully placed',
+      [
+        {
+          text: 'Go to Home',
+          onPress: () => {
+            navigation.navigate('Home');
+          },
+        },
+      ],
+      {cancelable: false},
+    );
   };
+
+  const {cartItem, totalPrice} = route.params as any;
+
+  console.log(totalPrice);
 
   return (
     <ScrollView style={styles.root}>
+      <View>
+        <Text style={styles.title}>
+          Shipping Address ({cartItem.products[0].name} x {cartItem.quantity}) - Total: ${totalPrice}
+        </Text>
+      </View>
       <KeyboardAvoidingView>
         <View style={styles.row}>
           <Picker selectedValue={country} onValueChange={(itemValue, itemIndex) => setCountry(itemValue)}>
