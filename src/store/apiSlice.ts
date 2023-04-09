@@ -23,6 +23,7 @@ export const apiSlice = createApi({
     }),
     getOrder: builder.query({
       query: ref => `orders/${ref}`,
+      providesTags: ['Orders'],
     }),
     setOrder: builder.mutation({
       query: newOrder => ({
@@ -30,6 +31,14 @@ export const apiSlice = createApi({
         method: 'POST',
         body: newOrder,
       }),
+      invalidatesTags: ['Orders'],
+    }),
+    cancelOrder: builder.mutation({
+      query: ref => ({
+        url: `orders/${ref}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Orders'],
     }),
     // Cart
     getUserCart: builder.query<void, void>({

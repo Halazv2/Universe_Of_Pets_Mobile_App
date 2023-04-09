@@ -30,16 +30,16 @@ const ProductScreen = () => {
       setSelectedOption(data[0].options[0]);
     }
 
-    const data = {
+    const arg = {
       user: selector.user.id,
       products: [id],
       quantity: quantity,
       option: selectedOption,
     };
 
-    await addToCart(data);
+    await addToCart(arg);
 
-    console.log(data);
+    console.log(arg);
     navigation.navigate('cart');
   };
 
@@ -77,6 +77,8 @@ const ProductScreen = () => {
           onValueChange={(itemValue, itemIndex) => {
             setSelectedOption(itemValue);
           }}>
+          <Picker.Item label="Select an option" value="" />
+
           {data[0].options.map((option: any) => (
             <Picker.Item label={option} value={option} key={option} />
           ))}
