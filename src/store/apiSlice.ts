@@ -92,6 +92,7 @@ export const {
   useCreateOrderMutation,
   useGetOrderQuery,
   useSetOrderMutation,
+  useCancelOrderMutation,
   useCreatePaymentIntentMutation,
   useGetUserCartQuery,
   useDeleteProductFromCartMutation,

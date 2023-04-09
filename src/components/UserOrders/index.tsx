@@ -5,7 +5,7 @@ import {styles} from './styles';
 import {Host_Ubuntu, Host_Windows} from '../../../env';
 import {QuantitySelector} from '../QuantitySelector';
 import Button from '../../components/Button';
-import {useDeleteProductFromCartMutation} from '../../store/apiSlice';
+import {useCancelOrderMutation} from '../../store/apiSlice';
 import {useNavigation} from '@react-navigation/core';
 
 type UserOrdersItemProps = {
@@ -42,6 +42,12 @@ const UserOrders = ({data}: UserOrdersItemProps) => {
   const diffInMs = now - createdAtDate;
   const diffInHours = Math.floor(diffInMs / (1000 * 60 * 60));
 
+  const [cancelOrder] = useCancelOrderMutation();
+
+  const onCancelOrder = (id: string) => {
+    cancelOrder(id);
+  };
+
   return (
     <View style={styles.root}>
       <View style={styles.row}>
@@ -76,7 +82,7 @@ const UserOrders = ({data}: UserOrdersItemProps) => {
 
           diffInHours < 24 ? (
             data.status === 'pending' ? (
-              <Pressable style={styles.deleteButton}>
+              <Pressable style={styles.deleteButton} onPress={() => onCancelOrder(data._id)}>
                 <FontAwesome style={styles.star} name={'trash-o'} size={18} color={'#e47911'} />
               </Pressable>
             ) : (
