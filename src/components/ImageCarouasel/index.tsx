@@ -14,7 +14,13 @@ const ImageCarouasel = (props: ImageCarouaselProps) => {
       setActiveIndex(viewableItems[0].index || 0);
     }
   }, []);
-  const imageUrl = `${Host_Ubuntu}/uploads/${props.images}`;
+  const imageUrl = (image: string) => {
+    if (image.includes('http')) {
+      return image;
+    } else {
+      return `${Host_Ubuntu}/uploads/${image}`;
+    }
+  };
 
   return (
     <View style={styles.root}>
@@ -25,7 +31,9 @@ const ImageCarouasel = (props: ImageCarouaselProps) => {
         snapToAlignment={'center'}
         decelerationRate={'fast'}
         showsHorizontalScrollIndicator={false}
-        renderItem={({item}) => <Image style={[styles.image, {width: width - 25, height: (width - 20) * 0.8}]} source={{uri: imageUrl}} />}
+        renderItem={({item}) => (
+          <Image style={[styles.image, {width: width - 25, height: (width - 20) * 0.8}]} source={{uri: imageUrl(item)}} />
+        )}
         viewabilityConfig={{
           viewAreaCoveragePercentThreshold: 50,
         }}
