@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   logout: {
-    position: 'absolute',
+    // position: 'absolute',
     bottom: 0,
     width: '100%',
   },

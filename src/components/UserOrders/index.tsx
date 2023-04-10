@@ -36,7 +36,7 @@ type UserOrdersItemProps = {
 };
 
 const UserOrders = ({data}: UserOrdersItemProps) => {
-  const imageUrl = `${Host_Ubuntu}/uploads/${data.products[0].images[0].path}`;
+  const imageUrl = `${Host_Ubuntu}/uploads/${data.products[0].images[0]?.path}`;
   const createdAtDate = new Date(data.createdAt);
   const now = new Date();
   const diffInMs = now - createdAtDate;
